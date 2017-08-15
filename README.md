@@ -5,6 +5,15 @@ These files define utility functions and other aliases and useful strings which 
 
 Below, find descriptions of the contents underneath the filename in which the function is defined.
 
+## aliases.sh
+Define command aliases.
+
+## colors.sh
+Define a standard set of environment variables for changing text and background based on the `tput` command.
+
+## exports.sh
+Define useful environment variables for strings.
+
 ## functions.sh
 ### `reverse_array()`
 Reverses the elements of an array.
@@ -24,3 +33,9 @@ Prints a formatted informational message.
 
 ### `log_error()`
 Prints a formatted error message.
+
+## less_termcaps.sh
+Set useful Termcap variables for improving functionality of `less`.
+
+## sparks.sh
+Define a set of vairbales for printing unicode sparkline characters (▁▂▃▄▅▆▇█).
