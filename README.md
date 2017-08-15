@@ -1,11 +1,9 @@
 # bash-functions
-Useful Bash utility functions.
+Useful Bash utility files.
 
-These files define useful utility functions which can be used in Bash scripts. These files are meant to be _sourced_.
+These files define utility functions and other aliases and useful strings which can be used in Bash scripts. These files are meant to be _sourced_, either as part of the initial login/bashrc or as part of the initialization steps of a script which will use these functions. None of the files in this repo should actually make any changes to a system when executed, other than to set and define environment variables, aliases, and functions.
 
-Below, find descriptions of the functions underneath the filename in which the function is defined.
-
-Right now, all functions are defined in a single `functions.sh`, but in the future this may be split into multiple files based on what the functions are for.
+Below, find descriptions of the contents underneath the filename in which the function is defined.
 
 ## functions.sh
 ### `reverse_array()`
