@@ -1,0 +1,5 @@
+export brofist="👊"
+export rvm_path="${HOME}/.rvm"
+export shrug="¯\\_(ツ)_/¯"
+export SPEC_OPTS="--format documentation"
+export thumbsup="👍"

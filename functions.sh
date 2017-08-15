@@ -1,4 +1,5 @@
-
+debugon=false
+my_name=${0}
 reverse_array() {
 # Input: An array of strings, separated by whitespace.
 # Output: The same array, reversed.
@@ -50,4 +51,3 @@ log_info() {
     stack=$(format_call_stack "${FUNCNAME[*]}")
     printf '[[%s: %s]]: %s\n' "${my_name}" "${stack}" "$*"
 }
-
