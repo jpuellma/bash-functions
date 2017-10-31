@@ -1,4 +1,3 @@
-local uname_a
 uname_a=$(uname -a)
 
 # Environment-specific:

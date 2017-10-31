@@ -244,10 +244,11 @@ is_centos() {
 # Note: a "Red Hat Enterprise Linux" result will return FALSE.
     log_debug "Begin."
     local release
-    release=$(cat /etc/redhat-release)
+    release=$(cat /etc/redhat-release 2>/dev/null)
     if [[ _${release} == _"CentOS release "* ]] || \
        [[ _${release} == _"CentOS Linux release "* ]]; then
         log_debug "Detected \"${release}\", which is CentOS."
+# ]] <-- This comment resets some broken syntax highlighters.
         return_value=0
     else
         log_debug "Detected \"${release}\", which is NOT CentOS."
@@ -256,7 +257,6 @@ is_centos() {
     log_debug "End. Returning \"${return_value}\"."
     return $return_value
 }
-
 
 is_puppet_two() {
 # Attempts to determine if Puppet version 2.* is already installed.
@@ -275,6 +275,21 @@ is_puppet_two() {
     fi
     return ${return_value}
 }  # end is_puppet_two()
+
+
+is_macos() {
+# Test if this function is run within a Mac OS environment.
+# Returns 0 for true, 1 for false.
+    log_debug "Begin."
+    local return_value
+    if [[ "$(uname -a 2>/dev/null)" == "Darwin "* ]]; then
+        return_value=0
+        log_debug "Mac OS detected. Returning true."
+    else
+        return_value=1
+        log_debug "Mac OS not detected. Returning false."
+    fi
+}  # end is_macos()
 
 
 do_or_die() {
