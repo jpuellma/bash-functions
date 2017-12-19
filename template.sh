@@ -71,8 +71,7 @@ main() {
 }
 
 
-# Only invoke main() if we were NOT sourced.
-# This allows other scripts to source this file and cherry-pick function calls.
+# Only invoke main() if we were NOT sourced. This allows other scripts to source this file and cherry-pick functions.
 [ "$0" = "${BASH_SOURCE[0]}" ] && nature=executed || nature=sourced
 if [ _${nature} != _"sourced" ]; then
     log_debug "Executing main()."
