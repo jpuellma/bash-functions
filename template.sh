@@ -72,6 +72,20 @@ do_restart(){
 }
 
 
+do_print_failed() {
+    log_debug "Begin ${FUNCNAME[0]}()."
+    printf "\e[31m[FAILED]\e[39;49m\n"
+    log_debug "End ${FUNCNAME[0]}()."
+}
+
+
+do_print_success() {
+    log_debug "Begin ${FUNCNAME[0]}()."
+    printf "\e[32m[SUCCESS]\e[39;49m\n"
+    log_debug "End ${FUNCNAME[0]}()."
+}
+
+
 main() {
     log_debug "Begin ${FUNCNAME[0]}()."
     return_value=0
