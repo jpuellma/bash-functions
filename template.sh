@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export debugon=${debugon:-false}
+debugon=${debugon:-false}
 # set -o errexit
 # set -o pipefail
 # set -o nounset
@@ -28,21 +28,33 @@ log_info() {
 }
 
 
-do_get_arg() {
+do_get_args() {
     log_debug "Begin ${FUNCNAME[0]}."
-    log_debug "End   ${FUNCNAME[0]}."
+    log_debug "  End ${FUNCNAME[0]}."
+}
+
+
+do_print_usage() {
+    log_debug "Begin ${FUNCNAME[0]}."
+    cat << eof
+Usage: ${__name} [ option1| option2 | option3 ]
+    option1 - Does thing1
+    option2 - Does thing2
+    option3 - Does thing3
+eof
+    log_debug "  End ${FUNCNAME[0]}."
 }
 
 
 do_stop() {
     log_debug "Begin ${FUNCNAME[0]}."
-    log_debug "End   ${FUNCNAME[0]}."
+    log_debug "  End ${FUNCNAME[0]}."
 }
 
 
 do_start() {
     log_debug "Begin ${FUNCNAME[0]}."
-    log_debug "End   ${FUNCNAME[0]}."
+    log_debug "  End ${FUNCNAME[0]}."
 }
 
 
@@ -50,12 +62,12 @@ do_restart(){
     log_debug "Begin ${FUNCNAME[0]}."
     do_stop
     do_start
-    log_debug "End   ${FUNCNAME[0]}."
+    log_debug "  End ${FUNCNAME[0]}."
 }
 
 main() {
     log_debug "Begin ${FUNCNAME[0]}."
-    log_debug "End   ${FUNCNAME[0]}."
+    log_debug "  End ${FUNCNAME[0]}."
 }
 
 
@@ -64,7 +76,7 @@ main() {
 [ "$0" = "${BASH_SOURCE[0]}" ] && nature=executed || nature=sourced
 if [ _${nature} != _"sourced" ]; then
     log_debug "Executing main()."
-    main
+    main "$@"
 else
     log_debug "Being read as source. Skipping main() execution."
 fi
