@@ -92,6 +92,7 @@ do_get_args() {
                 ;;
         esac
     done
+    log_debug "verbosity is ${verbosity}."
     log_debug "End ${FUNCNAME[0]}(). Returning ${return_value}."
     return ${return_value}
 }  # end do_get_args()
@@ -150,7 +151,6 @@ main() {
     log_debug "__file is ${__file}."
     log_debug "__name is ${__name}."
     do_get_args "$@"
-    log_debug "verbosity is ${verbosity}."
     # DO WORK HERE
     log_debug "End ${FUNCNAME[0]}(). Returning ${return_value}."
     return ${return_value}
