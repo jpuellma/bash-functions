@@ -10,6 +10,7 @@ dump_on_exit=${dump_on_exit:-false}
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __name="$(basename ${__file})"
+(( verbosity=0 ))
 
 
 do_exit_trap() {
@@ -60,11 +61,37 @@ log_info() {
 
 do_get_args() {
 # Read cmdline args and set global variables.
+# -h prints help.
+# -v increments global var ${verbosity} by 1 on each use.
+# -f <filename> sets global var ${filename_arg} to <filename>.
 # Input: "$@"
 # Output: None.
 # Returns: 0
     log_debug "Begin ${FUNCNAME[0]}()."
     local return_value
+    while getopts ":hvf:" opt; do
+        case $opt in
+            h)
+                do_print_usage
+                exit 0
+                ;;
+            v)
+                (( verbosity++ ))
+                ;;
+            f)
+                filename_arg="${OPTARG}"
+                log_debug "filename arg is \"${filename_arg}\"."
+                ;;
+            \?)
+                log_error "Invalid option -${OPTARG}." >& /dev/stderr
+                exit 1
+                ;;
+            :)
+                log_error "Option -${OPTARG} requires an argument." >& /dev/stderr
+                exit 1
+                ;;
+        esac
+    done
     log_debug "End ${FUNCNAME[0]}(). Returning ${return_value}."
     return ${return_value}
 }  # end do_get_args()
@@ -78,10 +105,9 @@ do_print_usage() {
     log_debug "Begin ${FUNCNAME[0]}."
     cat << eof
 Usage: ${__name} [ option1| option2 | option3 ]
-    start - Starts the service.
-    stop - Stops the service.
-    restart - Stops, then starts, the service.
-    status - Reports current status of service.
+    option1 - Does thing1.
+    option2 - Does thing2.
+    option3 - Does thing3.
 eof
     log_debug "End ${FUNCNAME[0]}."
 }  # end do_print_usage()
@@ -96,8 +122,7 @@ do_setup() {
     log_debug "Begin ${FUNCNAME[0]}()."
     local return_value
     original_dir="$(pwd)"
-    pushd "${repo_dir}" || log_error "Couldn't cd to repo dir."
-    let return_value=return_value+$?
+    (( return_value=return_value+$? ))
     log_debug "End ${FUNCNAME[0]}(). Returning ${return_value}."
     return ${return_value}
 }  # end do_setup()
@@ -111,7 +136,7 @@ function_template() {
     log_debug "Begin ${FUNCNAME[0]}()."
     local return_value
     do_stuff
-    let return_value=return_value+$?
+    (( return_value=return_value+$? ))
     log_debug "End ${FUNCNAME[0]}(). Returning ${return_value}."
     return ${return_value}
 }  # end function_template()
@@ -120,10 +145,12 @@ function_template() {
 main() {
     log_debug "Begin ${FUNCNAME[0]}()."
     local return_value
-    let return_value=0
+    (( return_value=0 ))
     log_debug "__dir is ${__dir}."
     log_debug "__file is ${__file}."
     log_debug "__name is ${__name}."
+    do_get_args "$@"
+    log_debug "verbosity is ${verbosity}."
     # DO WORK HERE
     log_debug "End ${FUNCNAME[0]}(). Returning ${return_value}."
     return ${return_value}
