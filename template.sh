@@ -61,9 +61,7 @@ log_info() {
 
 do_get_args() {
 # Read cmdline args and set global variables.
-# -h prints help.
-# -v increments global var ${verbosity} by 1 on each use.
-# -f <filename> sets global var ${filename_arg} to <filename>.
+# Check do_print_usage() for details on args.
 # Input: "$@"
 # Output: None.
 # Returns: 0
