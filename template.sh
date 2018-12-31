@@ -19,7 +19,7 @@ do_exit_trap() {
 # - cd back to original directory.
 # Input: None.
 # Output: If dump is set, then all env vars are sorted and output.
-    if [ "${dump_on_exit}" = "true" ]; then
+    if [[ "${dump_on_exit}" = "true" ]]; then
         env|sort
     fi
     original_dir=${original_dir:-.}
@@ -35,7 +35,7 @@ log_debug() {
 # Input: String
 # Output: Formatted string.
 # Returns: 0
-    if [ "${debugon}" == "true" ]; then
+    if [[ "${debugon}" == "true" ]]; then
         printf 'Debug [%s: %s]: %s\n' "${__name}" "${FUNCNAME[1]}" "$*" > /dev/stderr
     fi
 }  # end log_debug()
@@ -68,7 +68,7 @@ do_get_args() {
     log_debug "Begin ${FUNCNAME[0]}()."
     local return_value
     while getopts ":hvf:" opt; do
-        case $opt in
+        case ${opt} in
             h)
                 do_print_usage
                 exit 0
@@ -156,8 +156,8 @@ main() {
 
 
 # Only invoke main() if we were NOT sourced. This allows other scripts to source this file and cherry-pick functions.
-[ "$0" = "${BASH_SOURCE[0]}" ] && nature=executed || nature=sourced
-if [ "${nature}" != "sourced" ]; then
+[[ "$0" = "${BASH_SOURCE[0]}" ]] && nature=executed || nature=sourced
+if [[ "${nature}" != "sourced" ]]; then
     log_debug "Not sourced. Invoking main function."
     main "$@"
 else
